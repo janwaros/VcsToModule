@@ -1,0 +1,43 @@
+<idea-plugin version="2">
+  <id>com.comarch.koscinski.jaroslaw.VcsToModule</id>
+  <name>VcsToModule</name>
+  <version>0.666</version>
+  <vendor email="jaroslaw.koscinski@comarch.com" url="http://www.comarch.com">Jarosław Kościński</vendor>
+
+  <description><![CDATA[
+      After VCS checkout this plugin will ask you whether you want to create a project or module for checked out sources.
+      ]]></description>
+
+  <change-notes><![CDATA[
+      Initial version.
+      ]]>
+  </change-notes>
+
+  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="107.105"/>
+
+  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <application-components>
+    <!-- Add your application components here -->
+      <component>
+          <implementation-class>com.comarch.koscinski.jaroslaw.plugins.DefaultExtensionUnregisterer</implementation-class>
+      </component>
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+  <extensions defaultExtensionNs="com.intellij">
+      <vcsAwareCheckoutListener implementation="com.comarch.koscinski.jaroslaw.plugins.VcsToModule"/>
+  </extensions>
+</idea-plugin>
