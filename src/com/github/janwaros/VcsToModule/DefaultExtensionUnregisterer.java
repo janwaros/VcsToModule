@@ -1,4 +1,4 @@
-package com.comarch.koscinski.jaroslaw.plugins;
+package com.github.janwaros.VcsToModule;
 
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.extensions.Extensions;
@@ -28,6 +28,6 @@ public class DefaultExtensionUnregisterer implements ApplicationComponent {
 
     @NotNull
     public String getComponentName() {
-        return "com.comarch.koscinski.jaroslaw.plugins.DefaultExtensionUnregistrer";
+        return "com.github.janwaros.VcsToModule.plugins.DefaultExtensionUnregistrer";
     }
 }

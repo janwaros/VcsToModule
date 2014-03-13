@@ -1,31 +1,24 @@
-package com.comarch.koscinski.jaroslaw.plugins;
+package com.github.janwaros.VcsToModule;
 
 import com.intellij.ide.actions.ImportModuleAction;
 import com.intellij.ide.util.newProjectWizard.AddModuleWizard;
 import com.intellij.openapi.application.ApplicationNamesInfo;
-import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.roots.ui.configuration.DefaultModulesProvider;
 import com.intellij.openapi.roots.ui.configuration.actions.NewModuleAction;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vcs.ProjectLevelVcsManager;
 import com.intellij.openapi.vcs.VcsBundle;
 import com.intellij.openapi.vcs.VcsDirectoryMapping;
 import com.intellij.openapi.vcs.VcsKey;
-import com.intellij.openapi.vcs.checkout.ProjectCheckoutListener;
 import com.intellij.openapi.vcs.checkout.VcsAwareCheckoutListener;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.projectImport.ProjectImportProvider;
 import com.intellij.util.PlatformUtils;
-import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
 import java.io.File;
 import java.util.*;
 
@@ -57,6 +50,15 @@ public class VcsToModule implements VcsAwareCheckoutListener {
             if (wizard.showAndGet()) {
                 ImportModuleAction.createFromWizard(null, wizard);
             }
+            final Project[] projectsAfter = pm.getOpenProjects();
+
+            for (Project project1 : projectsAfter) {
+                if (project1.getBaseDir() != null && ! files.contains(project1.getBaseDir())) {
+                    final ProjectLevelVcsManager vcsManager = ProjectLevelVcsManager.getInstance(project1);
+                    vcsManager.setDirectoryMappings(Collections.singletonList(new VcsDirectoryMapping("", vcsKey.getName())));
+                    break;
+                }
+            }
         } else if(rc == 1) {
             wizard = createModuleWizard(project, file);
             if (wizard == null) return false;
@@ -65,16 +67,6 @@ public class VcsToModule implements VcsAwareCheckoutListener {
             }
         }
 
-
-        final Project[] projectsAfter = pm.getOpenProjects();
-
-        for (Project project1 : projectsAfter) {
-            if (project1.getBaseDir() != null && ! files.contains(project1.getBaseDir())) {
-                final ProjectLevelVcsManager vcsManager = ProjectLevelVcsManager.getInstance(project1);
-                vcsManager.setDirectoryMappings(Collections.singletonList(new VcsDirectoryMapping("", vcsKey.getName())));
-                break;
-            }
-        }
         return true;
     }
 
