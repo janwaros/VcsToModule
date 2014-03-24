@@ -2,7 +2,7 @@
     <id>com.github.janwaros.VcsToModule</id>
     <name>VcsToModule</name>
     <version>13.1.0</version>
-    <vendor email="janwar@ebrzozow.net" url="https://github.com/janwaros/VcsToModule">Jarosław Kościński</vendor>
+    <vendor email="koscinski.jaroslaw@gmail.com" url="https://github.com/janwaros/VcsToModule">Jarosław Kościński</vendor>
 
     <description><![CDATA[
       After VCS checkout this plugin will ask you whether you want to create a project or module for checked out sources.
