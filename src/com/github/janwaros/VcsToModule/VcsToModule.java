@@ -1,6 +1,7 @@
 package com.github.janwaros.VcsToModule;
 
 import com.intellij.ide.actions.ImportModuleAction;
+import com.intellij.ide.projectWizard.NewProjectWizard;
 import com.intellij.ide.util.newProjectWizard.AddModuleWizard;
 import com.intellij.openapi.application.ApplicationNamesInfo;
 import com.intellij.openapi.project.Project;
@@ -42,10 +43,9 @@ public class VcsToModule implements VcsAwareCheckoutListener {
         final Project[] projects = pm.getOpenProjects();
         final Set<VirtualFile> files = projectsLocationSet(projects);
         VirtualFile file = LocalFileSystem.getInstance().findFileByIoFile(directory);
-        AddModuleWizard wizard;
 
         if (rc == 0) {
-            wizard = ImportModuleAction.createImportWizard(null, null, file, ProjectImportProvider.PROJECT_IMPORT_PROVIDER.getExtensions());
+            AddModuleWizard wizard = ImportModuleAction.createImportWizard(null, null, file, ProjectImportProvider.PROJECT_IMPORT_PROVIDER.getExtensions());
             if (wizard == null) return false;
             if (wizard.showAndGet()) {
                 ImportModuleAction.createFromWizard(null, wizard);
@@ -60,12 +60,15 @@ public class VcsToModule implements VcsAwareCheckoutListener {
                 }
             }
         } else if(rc == 1) {
-            wizard = createModuleWizard(project, file);
+            NewProjectWizard wizard = createModuleWizard(project, file);
+
+            wizard.show();
+
             if (wizard == null) return false;
-            if (wizard.showAndGet()) {
-                new NewModuleAction().createModuleFromWizard(project,null,wizard);
+            if (wizard.isOK()) {
+                    new NewModuleAction().createModuleFromWizard(project,null,wizard);
+                }
             }
-        }
 
         return true;
     }
@@ -89,9 +92,9 @@ public class VcsToModule implements VcsAwareCheckoutListener {
         return files;
     }
 
-    public static AddModuleWizard createModuleWizard(final Project project,final VirtualFile file) {
+    public static NewProjectWizard createModuleWizard(final Project project,final VirtualFile file) {
         String path = ProjectImportProvider.getDefaultPath(file);
-        return new AddModuleWizard(project, new DefaultModulesProvider(project), path);
+        return new NewProjectWizard(project, new DefaultModulesProvider(project), path);
     }
 
 

@@ -1,7 +1,7 @@
 <idea-plugin version="2">
-    <id>com.github.janwaros.VcsToModule.VcsToModule</id>
+    <id>com.github.janwaros.VcsToModule</id>
     <name>VcsToModule</name>
-    <version>1.1</version>
+    <version>13.1.0</version>
     <vendor email="janwar@ebrzozow.net" url="https://github.com/janwaros/VcsToModule">Jarosław Kościński</vendor>
 
     <description><![CDATA[
@@ -9,8 +9,11 @@
       ]]></description>
 
     <change-notes><![CDATA[
-      1.1<br>
-      Idea 13 compatible
+      13.1.0<br>
+      Idea 13.1 compatible
+      <br><br>
+      13.0.0<br>
+      Idea 13.0 compatible
       <br><br>
       0.666<br>
       Initial version.
@@ -18,7 +21,7 @@
     </change-notes>
 
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="133.696"/>
+    <idea-version since-build="135"/>
 
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
          on how to target different products -->
